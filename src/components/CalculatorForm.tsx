@@ -83,20 +83,20 @@ export default function CalculatorForm({ onCalculate, onTrackEvent }: Calculator
       {/* Desktop: Two column layout, Mobile: Single column */}
       <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
         {/* Left Column - Personal Info */}
-        <div className="space-y-5">
-          {/* Sex Selection */}
+        <div className="space-y-4">
+          {/* Sex Selection - Full width, 50/50 split */}
           <fieldset>
             <legend className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
               Biological Sex
             </legend>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {(['male', 'female'] as const).map((option) => (
                 <button
                   key={option}
                   type="button"
                   onClick={() => setSex(option)}
                   className={`
-                    px-4 py-2.5 rounded-lg border-2 font-medium text-sm transition-all
+                    py-2.5 rounded-lg border-2 font-medium text-sm transition-all
                     focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1
                     ${sex === option
                       ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
@@ -111,51 +111,54 @@ export default function CalculatorForm({ onCalculate, onTrackEvent }: Calculator
             </div>
           </fieldset>
 
-          {/* Age Input */}
-          <div>
-            <label htmlFor="age" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
-              Age
-            </label>
-            <input
-              type="number"
-              id="age"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              min="15"
-              max="100"
-              placeholder="Years"
-              className="w-full px-3 py-2.5 rounded-lg border-2 border-gray-200 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-            />
-          </div>
+          {/* Age + Units Row - Side by side */}
+          <div className="grid grid-cols-2 gap-3">
+            {/* Age Input */}
+            <div>
+              <label htmlFor="age" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                Age
+              </label>
+              <input
+                type="number"
+                id="age"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                min="15"
+                max="100"
+                placeholder="Years"
+                className="w-full px-3 py-2.5 rounded-lg border-2 border-gray-200 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+              />
+            </div>
 
-          {/* Unit System Toggle */}
-          <div>
-            <span className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
-              Units
-            </span>
-            <div className="inline-flex rounded-lg bg-gray-100 p-0.5 dark:bg-gray-800">
-              {(['imperial', 'metric'] as const).map((system) => (
-                <button
-                  key={system}
-                  type="button"
-                  onClick={() => setUnitSystem(system)}
-                  className={`
-                    px-3 py-1.5 rounded-md text-sm font-medium transition-all
-                    focus:outline-none focus:ring-2 focus:ring-emerald-500
-                    ${unitSystem === system
-                      ? 'bg-white shadow text-gray-900 dark:bg-gray-700 dark:text-white'
-                      : 'text-gray-600 hover:text-gray-900 dark:text-gray-400'
-                    }
-                  `}
-                  aria-pressed={unitSystem === system}
-                >
-                  {system === 'imperial' ? 'ft/lb' : 'cm/kg'}
-                </button>
-              ))}
+            {/* Unit System Toggle - Full width buttons */}
+            <div>
+              <span className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                Units
+              </span>
+              <div className="grid grid-cols-2 gap-1 rounded-lg bg-gray-100 p-1 dark:bg-gray-800">
+                {(['imperial', 'metric'] as const).map((system) => (
+                  <button
+                    key={system}
+                    type="button"
+                    onClick={() => setUnitSystem(system)}
+                    className={`
+                      py-2 rounded-md text-sm font-medium transition-all
+                      focus:outline-none focus:ring-2 focus:ring-emerald-500
+                      ${unitSystem === system
+                        ? 'bg-white shadow text-gray-900 dark:bg-gray-700 dark:text-white'
+                        : 'text-gray-600 hover:text-gray-900 dark:text-gray-400'
+                      }
+                    `}
+                    aria-pressed={unitSystem === system}
+                  >
+                    {system === 'imperial' ? 'ft / lb' : 'cm / kg'}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Height & Weight - Side by side on desktop */}
+          {/* Height & Weight - Side by side */}
           <div className="grid grid-cols-2 gap-3">
             {/* Height */}
             <div>
@@ -163,29 +166,25 @@ export default function CalculatorForm({ onCalculate, onTrackEvent }: Calculator
                 Height
               </label>
               {unitSystem === 'imperial' ? (
-                <div className="flex gap-2">
-                  <div className="flex-1">
-                    <input
-                      type="number"
-                      value={heightFeet}
-                      onChange={(e) => setHeightFeet(e.target.value)}
-                      min="3"
-                      max="8"
-                      placeholder="ft"
-                      className="w-full px-3 py-2.5 rounded-lg border-2 border-gray-200 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <input
-                      type="number"
-                      value={heightInches}
-                      onChange={(e) => setHeightInches(e.target.value)}
-                      min="0"
-                      max="11"
-                      placeholder="in"
-                      className="w-full px-3 py-2.5 rounded-lg border-2 border-gray-200 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                    />
-                  </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <input
+                    type="number"
+                    value={heightFeet}
+                    onChange={(e) => setHeightFeet(e.target.value)}
+                    min="3"
+                    max="8"
+                    placeholder="ft"
+                    className="w-full px-3 py-2.5 rounded-lg border-2 border-gray-200 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                  />
+                  <input
+                    type="number"
+                    value={heightInches}
+                    onChange={(e) => setHeightInches(e.target.value)}
+                    min="0"
+                    max="11"
+                    placeholder="in"
+                    className="w-full px-3 py-2.5 rounded-lg border-2 border-gray-200 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                  />
                 </div>
               ) : (
                 <input
@@ -231,7 +230,7 @@ export default function CalculatorForm({ onCalculate, onTrackEvent }: Calculator
             </div>
           </div>
 
-          {/* Optional Body Fat - Compact */}
+          {/* Optional Body Fat */}
           <div>
             <button
               type="button"

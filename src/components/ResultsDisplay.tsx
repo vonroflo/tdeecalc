@@ -62,11 +62,11 @@ export default function ResultsDisplay({
         <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-2">
           Your Daily Energy Expenditure
         </p>
-        <div className="flex items-baseline justify-center gap-2">
-          <span className="text-6xl md:text-7xl font-bold text-gray-900 dark:text-white">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+          <span className="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-900 dark:text-white">
             {results.tdee.toLocaleString()}
           </span>
-          <span className="text-2xl text-gray-600 dark:text-gray-400">calories/day</span>
+          <span className="text-lg sm:text-2xl text-gray-600 dark:text-gray-400">calories/day</span>
         </div>
         <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-md mx-auto">
           This is your maintenance level — the calories needed to keep your current weight stable.
@@ -84,21 +84,21 @@ export default function ResultsDisplay({
           Where Your Calories Go
         </h2>
         <TDEEChart breakdown={results.breakdown} />
-        <div className="mt-4 grid grid-cols-3 gap-4 text-center">
+        <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-4 text-center">
           <div>
-            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <p className="text-lg sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
               {results.breakdown.bmr.toLocaleString()}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">BMR (Resting)</p>
           </div>
           <div>
-            <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+            <p className="text-lg sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400">
               {results.breakdown.neat.toLocaleString()}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Activity</p>
           </div>
           <div>
-            <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">
+            <p className="text-lg sm:text-2xl font-bold text-amber-600 dark:text-amber-400">
               {results.breakdown.tef.toLocaleString()}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">Digestion (TEF)</p>
@@ -121,7 +121,7 @@ export default function ResultsDisplay({
               key={target.label}
               onClick={() => handleDeficitChange(index)}
               className={`
-                w-full p-4 rounded-xl border-2 text-left transition-all duration-200
+                w-full p-3 sm:p-4 rounded-xl border-2 text-left transition-all duration-200
                 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2
                 ${selectedDeficit === index
                   ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30'
@@ -130,9 +130,9 @@ export default function ResultsDisplay({
               `}
               aria-pressed={selectedDeficit === index}
             >
-              <div className="flex justify-between items-start">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className={`font-semibold ${selectedDeficit === index ? 'text-emerald-700 dark:text-emerald-400' : 'text-gray-900 dark:text-white'}`}>
                       {target.label}
                     </span>
@@ -151,12 +151,15 @@ export default function ResultsDisplay({
                     {target.description}
                   </p>
                 </div>
-                <div className="text-right ml-4">
-                  <p className={`text-2xl font-bold ${selectedDeficit === index ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-900 dark:text-white'}`}>
+                <div className="sm:text-right">
+                  <p className={`text-xl sm:text-2xl font-bold ${selectedDeficit === index ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-900 dark:text-white'}`}>
                     {target.calories.toLocaleString()}
+                    <span className="text-sm sm:text-xs font-normal text-gray-500 dark:text-gray-400 ml-1">
+                      cal/day
+                    </span>
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    cal/day ({Math.round(target.deficit * 100)}% deficit)
+                    {Math.round(target.deficit * 100)}% deficit
                   </p>
                 </div>
               </div>
@@ -185,7 +188,7 @@ export default function ResultsDisplay({
 
       {/* Macro Targets */}
       <section className="p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 mb-4">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
             Daily Macro Targets
           </h2>
@@ -195,21 +198,21 @@ export default function ResultsDisplay({
         </div>
 
         {/* Macro Bar */}
-        <div className="h-8 rounded-full overflow-hidden flex mb-4">
+        <div className="h-6 sm:h-8 rounded-full overflow-hidden flex mb-4">
           <div
-            className="bg-rose-500 flex items-center justify-center text-white text-xs font-medium"
+            className="bg-rose-500 flex items-center justify-center text-white text-[10px] sm:text-xs font-medium min-w-[28px]"
             style={{ width: `${currentMacros.protein.percentage}%` }}
           >
             {currentMacros.protein.percentage}%
           </div>
           <div
-            className="bg-amber-500 flex items-center justify-center text-white text-xs font-medium"
+            className="bg-amber-500 flex items-center justify-center text-white text-[10px] sm:text-xs font-medium min-w-[28px]"
             style={{ width: `${currentMacros.fat.percentage}%` }}
           >
             {currentMacros.fat.percentage}%
           </div>
           <div
-            className="bg-blue-500 flex items-center justify-center text-white text-xs font-medium"
+            className="bg-blue-500 flex items-center justify-center text-white text-[10px] sm:text-xs font-medium min-w-[28px]"
             style={{ width: `${currentMacros.carbs.percentage}%` }}
           >
             {currentMacros.carbs.percentage}%
@@ -217,7 +220,7 @@ export default function ResultsDisplay({
         </div>
 
         {/* Macro Cards */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4">
           <MacroCard
             name="Protein"
             grams={currentMacros.protein.grams}
@@ -335,17 +338,17 @@ function MacroCard({ name, grams, calories, color, priority }: MacroCardProps) {
   };
 
   return (
-    <div className={`p-4 rounded-xl border ${colorClasses[color]}`}>
+    <div className={`p-2 sm:p-4 rounded-xl border ${colorClasses[color]}`}>
       <div className="flex items-center gap-1 mb-1">
-        <span className="font-medium text-gray-900 dark:text-white">{name}</span>
+        <span className="font-medium text-xs sm:text-base text-gray-900 dark:text-white">{name}</span>
         {priority && (
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
         )}
       </div>
-      <p className="text-2xl font-bold">{grams}g</p>
-      <p className="text-xs text-gray-500 dark:text-gray-400">{calories} cal</p>
+      <p className="text-lg sm:text-2xl font-bold">{grams}g</p>
+      <p className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">{calories} cal</p>
     </div>
   );
 }

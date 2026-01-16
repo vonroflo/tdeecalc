@@ -66,7 +66,7 @@ export default function EducationSection() {
   };
 
   return (
-    <section className="mt-6" aria-labelledby="education-heading">
+    <section className="mt-4" aria-labelledby="education-heading">
       <div className="text-center mb-8">
         <h2
           id="education-heading"

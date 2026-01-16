@@ -1,9 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    // For calculator section, scroll to very top of page
+    if (targetId === 'calculator') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setMobileMenuOpen(false);
+      return;
+    }
+    const element = document.getElementById(targetId);
+    if (element) {
+      const headerHeight = 56; // h-14 = 3.5rem = 56px
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerHeight;
+      window.scrollTo({ top: Math.max(0, offsetPosition), behavior: 'smooth' });
+    }
+    setMobileMenuOpen(false);
+  }, []);
 
   return (
     <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 sticky top-0 z-40">
@@ -20,21 +38,17 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-6">
           <a
             href="#calculator"
+            onClick={(e) => scrollToSection(e, 'calculator')}
             className="text-sm font-medium text-gray-600 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400 transition-colors"
           >
             Calculator
           </a>
           <a
-            href="#education-heading"
+            href="#how-it-works"
+            onClick={(e) => scrollToSection(e, 'how-it-works')}
             className="text-sm font-medium text-gray-600 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400 transition-colors"
           >
             How It Works
-          </a>
-          <a
-            href="#education-heading"
-            className="text-sm font-medium text-gray-600 hover:text-emerald-600 dark:text-gray-400 dark:hover:text-emerald-400 transition-colors"
-          >
-            FAQ
           </a>
         </div>
 
@@ -42,6 +56,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <a
             href="#calculator"
+            onClick={(e) => scrollToSection(e, 'calculator')}
             className="hidden sm:inline-flex px-4 py-2 text-sm font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
           >
             Calculate Now
@@ -73,24 +88,17 @@ export default function Header() {
           <div className="px-4 py-3 space-y-2">
             <a
               href="#calculator"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => scrollToSection(e, 'calculator')}
               className="block py-2 text-sm font-medium text-gray-600 hover:text-emerald-600 dark:text-gray-400"
             >
               Calculator
             </a>
             <a
-              href="#education-heading"
-              onClick={() => setMobileMenuOpen(false)}
+              href="#how-it-works"
+              onClick={(e) => scrollToSection(e, 'how-it-works')}
               className="block py-2 text-sm font-medium text-gray-600 hover:text-emerald-600 dark:text-gray-400"
             >
               How It Works
-            </a>
-            <a
-              href="#education-heading"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block py-2 text-sm font-medium text-gray-600 hover:text-emerald-600 dark:text-gray-400"
-            >
-              FAQ
             </a>
           </div>
         </div>

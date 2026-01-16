@@ -57,7 +57,7 @@ function Calculator() {
           <div className="max-w-5xl mx-auto">
             {/* Compact Header */}
             <div className="text-center mb-10">
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 mt-8">
                 TDEE Calculator
               </h1>
               <p className="text-gray-600 dark:text-gray-400 text-sm lg:text-base">
@@ -84,7 +84,7 @@ function Calculator() {
         </section>
 
         {/* Education Section - Below the fold */}
-        <section className="px-4 py-6 bg-white dark:bg-gray-950">
+        <section id="how-it-works" className="px-4 py-6 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto">
             <EducationSection />
           </div>
